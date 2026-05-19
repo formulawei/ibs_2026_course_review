@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>IBS 2026 期末整合｜三模組心智圖 + 區塊資訊圖（中英對照）</title>
+<style>
+:root{
+  --ntu:#002B5C; --ntu2:#01356F; --gold:#C9A227;
+  --paper:#F4F7FC; --ink:#0B1220; --muted:#475569; --muted2:#64748B;
+  --line:#D7DEE9; --card:#FFFFFF; --shadow:0 10px 30px rgba(2,6,23,.10);
+  --radius:16px; --radius2:20px;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  /* module accents */
+  --strategy:#B45309;  /* 琥珀（策略） */
+  --growth:#0F766E;    /* 青綠（成長） */
+  --org:#4C1D95;       /* 深紫（組織） */
+  --case:#991B1B;      /* 暗紅（個案） */
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:var(--sans);font-size:16px;color:var(--ink);
+  background:radial-gradient(1200px 600px at 8% 0%,rgba(0,43,92,.07),transparent 55%),
+             radial-gradient(900px 500px at 96% 4%,rgba(201,162,39,.10),transparent 55%),
+             var(--paper);}
+.topbar{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:rgba(244,247,252,.94);backdrop-filter:blur(10px);z-index:30;}
+.brand{display:flex;gap:12px;align-items:center;min-width:0}
+.logo{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(135deg,var(--ntu),var(--ntu2));color:#fff;font-weight:900;
+  letter-spacing:.08em;box-shadow:0 8px 22px rgba(0,43,92,.28);font-size:13px}
+.brandText{min-width:0}
+.course{font-size:11px;color:var(--muted);letter-spacing:.03em}
+.topic{font-size:15px;font-weight:900;color:var(--ntu);line-height:1.2}
+.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;
+  font-weight:700;cursor:pointer;transition:.12s ease;font-size:13px;color:var(--ink)}
+.btn:hover{border-color:rgba(0,43,92,.35);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.btn.primary{background:var(--ntu);color:#fff;border-color:var(--ntu)}
+.btn.primary:hover{background:var(--ntu2)}
+.btn.gold{border-color:rgba(201,162,39,.45);background:rgba(201,162,39,.12);color:#5A4600}
+
+.layout{display:grid;grid-template-columns:280px 1fr;gap:18px;padding:18px;max-width:1640px;margin:0 auto}
+.sidebar{position:sticky;top:86px;align-self:start;border:1px solid var(--line);border-radius:var(--radius2);
+  background:rgba(255,255,255,.78);backdrop-filter:blur(8px);box-shadow:var(--shadow);padding:14px;
+  max-height:calc(100vh - 104px);overflow-y:auto;}
+.navTitle{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin:6px 4px 10px}
+.navItem{width:100%;text-align:left;padding:9px 11px;border-radius:11px;border:1px solid transparent;
+  background:transparent;cursor:pointer;font-weight:700;font-size:13px;color:var(--ntu2);display:block;
+  transition:.1s ease;margin-bottom:2px;line-height:1.35;font-family:inherit}
+.navItem:hover{background:rgba(0,43,92,.06)}
+.navItem.active{background:rgba(0,43,92,.10);border-color:rgba(0,43,92,.18)}
+.navItem.seg-st.active{background:rgba(180,83,9,.10);border-color:rgba(180,83,9,.25);color:var(--strategy)}
+.navItem.seg-gr.active{background:rgba(15,118,110,.10);border-color:rgba(15,118,110,.25);color:var(--growth)}
+.navItem.seg-or.active{background:rgba(76,29,149,.10);border-color:rgba(76,29,149,.25);color:var(--org)}
+.navItem.seg-ca.active{background:rgba(153,27,27,.10);border-color:rgba(153,27,27,.25);color:var(--case)}
+.navFooter{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.hint{font-size:11px;color:var(--muted);line-height:1.55}
+
+.content{border:1px solid var(--line);border-radius:var(--radius2);background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);box-shadow:var(--shadow);padding:24px;min-height:calc(100vh - 140px)}
+
+.sectionHead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.h1{font-size:26px;font-weight:900;color:var(--ntu);margin:0;line-height:1.18}
+.sub{margin:6px 0 0;color:var(--muted);line-height:1.55;font-size:14.5px}
+.tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,43,92,.25);
+  background:rgba(0,43,92,.08);color:var(--ntu);padding:7px 12px;border-radius:999px;font-weight:800;white-space:nowrap;font-size:12.5px}
+
+.callout{border-left:5px solid var(--ntu);padding:12px 14px;background:rgba(0,43,92,.05);border-radius:12px;margin:10px 0;line-height:1.6}
+.callout.gold{border-color:var(--gold);background:rgba(201,162,39,.08)}
+.callout.green{border-color:#15803d;background:rgba(21,128,61,.06)}
+.callout.purple{border-color:#7C3AED;background:rgba(124,58,237,.06)}
+.callout.red{border-color:#DC2626;background:rgba(220,38,38,.05)}
+.callout.teal{border-color:#0E7490;background:rgba(14,116,144,.06)}
+.callout strong{color:var(--ntu)}
+.pillRow{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 10px;font-weight:700;font-size:12px;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.pill .d{width:8px;height:8px;border-radius:50%}
+.pill.st{border-color:rgba(180,83,9,.45);background:rgba(180,83,9,.06);color:#7C3A00}
+.pill.gr{border-color:rgba(15,118,110,.45);background:rgba(15,118,110,.06);color:#0E4A45}
+.pill.or{border-color:rgba(76,29,149,.45);background:rgba(76,29,149,.06);color:#3C167E}
+.pill.ca{border-color:rgba(153,27,27,.45);background:rgba(153,27,27,.06);color:#7F1D1D}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:980px){.grid2,.grid3{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}}
+.card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);transition:transform .18s ease, box-shadow .18s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.10)}
+.cardTitle{font-weight:900;color:var(--ntu);margin:0 0 8px;font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cardTitle .wk{font-family:var(--mono);font-size:11px;font-weight:800;color:#fff;background:var(--ntu);padding:3px 8px;border-radius:8px}
+.cardTitle .wk.st{background:var(--strategy)} .cardTitle .wk.gr{background:var(--growth)} .cardTitle .wk.or{background:var(--org)} .cardTitle .wk.ca{background:var(--case)}
+.p{margin:0;color:var(--ink);line-height:1.65;font-size:14.5px}
+.sm{font-size:12.5px;color:var(--muted);line-height:1.55}
+.reading{font-size:12.5px;color:#0B1220;line-height:1.55;padding:8px 10px;background:#F8FAFC;border:1px solid var(--line);border-radius:10px;margin:6px 0}
+.reading b{color:var(--ntu)}
+.reading .badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:#E2E8F0;color:#334155;margin-right:6px;vertical-align:middle}
+.reading .badge.req{background:rgba(0,43,92,.10);color:var(--ntu)}
+.reading .badge.txt{background:rgba(201,162,39,.18);color:#7C5500}
+
+.tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.5}
+.tbl th{background:rgba(0,43,92,.06);color:var(--ntu);font-weight:800;font-size:12.5px;letter-spacing:.02em}
+.tbl tbody tr:nth-child(even){background:rgba(244,247,252,.55)}
+.tbl tbody tr:hover{background:rgba(201,162,39,.14)}
+
+.svgWrap{width:100%;overflow-x:auto;margin:12px 0;border-radius:var(--radius);border:1px solid var(--line);background:#fff}
+.svgWrap svg{width:1500px;height:auto;display:block}
+.diagramCaption{font-size:11.5px;color:var(--muted);text-align:center;margin-top:6px;font-style:italic;letter-spacing:.04em}
+
+footer{color:var(--muted);font-size:12px;text-align:center;padding:14px 0 4px}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ntu);color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;font-size:14px;transition:.3s ease;z-index:100;pointer-events:none;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+.reveal{opacity:0;transform:translateY(8px);animation:reveal .55s ease forwards}
+.reveal.d1{animation-delay:.05s}.reveal.d2{animation-delay:.12s}.reveal.d3{animation-delay:.18s}
+.reveal.d4{animation-delay:.24s}.reveal.d5{animation-delay:.30s}
+@keyframes reveal{to{opacity:1;transform:none}}
+
+.section{margin-bottom:30px}
+.hidden{display:none !important}
+
+/* Mind map link draw-in */
+.mm-link{stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 1.6s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mm-node-hover{transition:filter .15s ease, transform .15s ease}
+.mm-node-hover:hover{filter:brightness(1.06) saturate(1.05)}
+
+.legendStrip{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px}
+.legendStrip .pill{font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="logo">NTU<br>IBS</div>
+    <div class="brandText">
+      <div class="course">IB7018 · International Business Strategy · Spring 2026</div>
+      <div class="topic"><span data-zh="期末整合視覺筆記｜三模組心智圖 + 區塊資訊圖" data-en="Final Integrated Visual Notes | 3-Module Mind Map + Infographic">期末整合視覺筆記｜三模組心智圖 + 區塊資訊圖</span></div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn primary" id="btnLang">EN / 中</button>
+    <button class="btn gold" id="btnPrint">🖨 <span data-zh="列印" data-en="Print">列印</span></button>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="navTitle" data-zh="導覽 NAVIGATION" data-en="NAVIGATION">導覽 NAVIGATION</div>
+    <button class="navItem active" data-target="overview"><span data-zh="🧭 總覽 Overview" data-en="🧭 Overview">🧭 總覽 Overview</span></button>
+    <button class="navItem" data-target="mindmap"><span data-zh="🌳 心智圖（由上而下）" data-en="🌳 Mind Map (Top-Down)">🌳 心智圖（由上而下）</span></button>
+    <div class="navTitle" data-zh="三大模組 MODULES" data-en="MODULES">三大模組 MODULES</div>
+    <button class="navItem seg-st" data-target="strategy"><span data-zh="① 策略 Strategy · W2–W6" data-en="① Strategy · W2–W6">① 策略 Strategy · W2–W6</span></button>
+    <button class="navItem seg-gr" data-target="growth"><span data-zh="② 成長 Corporate Growth · W7–W10" data-en="② Corporate Growth · W7–W10">② 成長 Corporate Growth · W7–W10</span></button>
+    <button class="navItem seg-or" data-target="org"><span data-zh="③ 組織 Organization · W11–W13" data-en="③ Organization · W11–W13">③ 組織 Organization · W11–W13</span></button>
+    <div class="navTitle" data-zh="個案與閱讀" data-en="CASES & READINGS">個案與閱讀</div>
+    <button class="navItem seg-ca" data-target="cases"><span data-zh="🎯 兩大個案 Two Cases" data-en="🎯 Two Spotlight Cases">🎯 兩大個案 Two Cases</span></button>
+    <button class="navItem" data-target="readings"><span data-zh="📚 全部指定閱讀" data-en="📚 All Required Readings">📚 全部指定閱讀</span></button>
+    <div class="navFooter">
+      <div class="hint" data-zh="點導覽可跳到對應段落；右上角可切換中英文。心智圖採由上而下層級式佈局，連線會自動隨內容延伸。" data-en="Click items to jump to each section; toggle EN/中 at the top. The mind map is a top-down hierarchical layout that auto-routes lines without overlap.">點導覽可跳到對應段落；右上角可切換中英文。心智圖採由上而下層級式佈局，連線會自動隨內容延伸。</div>
+    </div>
+  </nav>
+
+  <main class="content" id="content">
+    <!-- ===================== OVERVIEW ===================== -->
+    <section id="overview" class="section reveal d1">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" data-zh="IBS 2026 · 三模組整合圖譜" data-en="IBS 2026 · Three-Module Integrated Map">IBS 2026 · 三模組整合圖譜</h1>
+          <p class="sub" data-zh="主軸個案：佃製作所（《下町火箭》S1–S2）｜兩大附加個案：Browser Wars (W6) 與 Seven & i (W13)。本頁依大綱三大模組整合所有理論、概念、個案與每週指定閱讀。" data-en="Longitudinal case: Tsukuda Manufacturing (Shitamachi Rocket S1–S2) | Two spotlights: Browser Wars (W6) and Seven & i (W13). This page integrates all theories, concepts, cases, and weekly readings by the syllabus's three modules.">主軸個案：佃製作所（《下町火箭》S1–S2）｜兩大附加個案：Browser Wars (W6) 與 Seven & i (W13)。本頁依大綱三大模組整合所有理論、概念、個案與每週指定閱讀。</p>
+        </div>
+        <span class="tag" data-zh="中英對照 · 互動視覺筆記" data-en="Bilingual · Interactive Visual Notes">中英對照 · 互動視覺筆記</span>
+      </div>
+
+      <div class="legendStrip">
+        <span class="pill st"><span class="d" style="background:var(--strategy)"></span><span data-zh="① 策略 Strategy（W2–W6）" data-en="① Strategy (W2–W6)">① 策略 Strategy（W2–W6）</span></span>
+        <span class="pill gr"><span class="d" style="background:var(--growth)"></span><span data-zh="② 成長 Corporate Growth（W7–W10）" data-en="② Corporate Growth (W7–W10)">② 成長 Corporate Growth（W7–W10）</span></span>
+        <span class="pill or"><span class="d" style="background:var(--org)"></span><span data-zh="③ 組織 Organization（W11–W13）" data-en="③ Organization (W11–W13)">③ 組織 Organization（W11–W13）</span></span>
+        <span class="pill ca"><span class="d" style="background:var(--case)"></span><span data-zh="🎯 兩大個案" data-en="🎯 Spotlight Cases">🎯 兩大個案</span></span>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3 class="cardTitle" style="color:var(--strategy)"><span data-zh="① 策略｜跨境競爭優勢的創造" data-en="① Strategy | Creating Cross-Border Advantages">① 策略｜跨境競爭優勢的創造</span><span class="wk st">W2–W6</span></h3>
+          <p class="p" data-zh="從『績效衡量 → 機會辨識 → 競爭優勢來源 → 策略創新 → 執行與動態能力』，建立企業特定優勢（FSA）的完整鏈條。" data-en="From performance metrics → opportunity recognition → sources of advantage → strategic innovation → execution & dynamic capabilities — the full chain that forges FSA.">從『績效衡量 → 機會辨識 → 競爭優勢來源 → 策略創新 → 執行與動態能力』，建立企業特定優勢（FSA）的完整鏈條。</p>
+        </div>
+        <div class="card">
+          <h3 class="cardTitle" style="color:var(--growth)"><span data-zh="② 成長｜全球佈局與協同" data-en="② Growth | Global Configuration & Collaboration">② 成長｜全球佈局與協同</span><span class="wk gr">W7–W10</span></h3>
+          <p class="p" data-zh="從『多角化 → 跨國距離與 GVC → 聯盟治理 → 平台生態』，回答企業『往哪裡長、跟誰一起長』。" data-en="From diversification → cross-border distance & GVC → alliance governance → platform ecosystems — answering where to grow and with whom.">從『多角化 → 跨國距離與 GVC → 聯盟治理 → 平台生態』，回答企業『往哪裡長、跟誰一起長』。</p>
+        </div>
+        <div class="card">
+          <h3 class="cardTitle" style="color:var(--org)"><span data-zh="③ 組織｜全球協調與控制" data-en="③ Organization | Global Coordination & Control">③ 組織｜全球協調與控制</span><span class="wk or">W11–W13</span></h3>
+          <p class="p" data-zh="從『組織設計 → 公司更新（雙元組織） → M&A 與重組』，把策略翻成可重複執行的組織結構與治理。" data-en="From org design → corporate renewal (ambidexterity) → M&A and restructuring — translating strategy into repeatable structures and governance.">從『組織設計 → 公司更新（雙元組織） → M&A 與重組』，把策略翻成可重複執行的組織結構與治理。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MIND MAP ===================== -->
+    <section id="mindmap" class="section reveal d2">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" data-zh="🌳 心智圖：由上而下層級式總體架構" data-en="🌳 Mind Map: Top-Down Hierarchical Overview">🌳 心智圖：由上而下層級式總體架構</h1>
+          <p class="sub" data-zh="從『IB7018 核心』向下展開為三大模組 → 各週主題 → 核心理論 / 個案。卡片彼此間自動留出空白以避免重疊；連線採柔和直角折線。" data-en="From the IB7018 core down to three modules → weekly topics → core theories / cases. Cards are padded so they never overlap; connectors use soft right-angle bends.">從『IB7018 核心』向下展開為三大模組 → 各週主題 → 核心理論 / 個案。卡片彼此間自動留出空白以避免重疊；連線採柔和直角折線。</p>
+        </div>
+        <span class="tag" data-zh="頂層 → 模組 → 週次 → 理論／個案" data-en="Root → Module → Week → Theory/Case">頂層 → 模組 → 週次 → 理論／個案</span>
+      </div>
+
+      <div class="svgWrap">
+        <svg id="mm" viewBox="0 0 1500 1240" xmlns="http://www.w3.org/2000/svg" role="img"></svg>
+      </div>
+      <div class="diagramCaption" data-zh="圖：IBS 2026 三模組層級式心智圖（中英文同步切換）" data-en="Figure: IBS 2026 three-module top-down hierarchical mind map (bilingual)">圖：IBS 2026 三模組層級式心智圖（中英文同步切換）</div>
+
+      <div class="callout gold" style="margin-top:14px">
+        <strong data-zh="閱讀地圖：" data-en="Reading map:">閱讀地圖：</strong>
+        <span data-zh="① 上半部為核心節點；② 中段三大彩色卡片為三模組；③ 每模組底下灰色週次卡列出該週主題；④ 最底層白色節點為核心理論／關鍵概念，★ 標示者為兩大個案。" data-en="① Top half = core node; ② mid-section coloured cards = three modules; ③ grey cards under each module list weekly topics; ④ bottom white nodes are core theories/concepts, with ★ marking the two spotlight cases.">① 上半部為核心節點；② 中段三大彩色卡片為三模組；③ 每模組底下灰色週次卡列出該週主題；④ 最底層白色節點為核心理論／關鍵概念，★ 標示者為兩大個案。</span>
+      </div>
+    </section>
+
+    <!-- ===================== STRATEGY MODULE ===================== -->
+    <section id="strategy" class="section reveal d3">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" style="color:var(--strategy)"><span data-zh="① 策略｜跨境競爭優勢的創造" data-en="① Strategy | Creating Cross-Border Competitive Advantages">① 策略｜跨境競爭優勢的創造</span></h1>
+          <p class="sub" data-zh="W2–W6 主軸：透過《下町火箭》S1（佃製作所 vs 帝國重工）展開五步建構企業特定優勢的鏈條。" data-en="W2–W6 spine: build firm-specific advantage step-by-step through Shitamachi Rocket S1 (Tsukuda vs Teikoku Heavy Industries).">W2–W6 主軸：透過《下町火箭》S1（佃製作所 vs 帝國重工）展開五步建構企業特定優勢的鏈條。</p>
+        </div>
+        <span class="tag" style="background:rgba(180,83,9,.10);border-color:rgba(180,83,9,.30);color:var(--strategy)" data-zh="W2 · W3 · W4 · W5 · W6" data-en="W2 · W3 · W4 · W5 · W6">W2 · W3 · W4 · W5 · W6</span>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W2｜績效與價值分析" data-en="W2 | Performance & Value Analysis">W2｜績效與價值分析</span><span class="wk st">W2</span></h3>
+          <p class="p" data-zh="《下町火箭》S1 Ep1-2：專利訴訟與生存策略。SME 在資源不對稱下的法律與財務優先順序——資源依賴理論 (RDT)。" data-en="Shitamachi Rocket S1 Ep1-2: patent litigation & survival. How an SME prioritizes legal & financial resources under resource asymmetry — Resource Dependence Theory (RDT).">《下町火箭》S1 Ep1-2：專利訴訟與生存策略。SME 在資源不對稱下的法律與財務優先順序——資源依賴理論 (RDT)。</p>
+          <div class="pillRow">
+            <span class="pill st">RDT 資源依賴</span><span class="pill st">Dynamic Value Metric</span><span class="pill st">Strategy Pyramid</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 1, 2, 4 章" data-en="Grant, Ch. 1, 2, 4">Grant，第 1, 2, 4 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Souder, D., Shaver, J. M., Harris, J. D., & Alrashdan, A. (2024).</b> Performance metrics in strategy research: A new metric and method for assessing dynamic value. <i>Strategic Management Journal, 45</i>(1), 144–167.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W3｜機會辨識" data-en="W3 | Opportunity Recognition">W3｜機會辨識</span><span class="wk st">W3</span></h3>
+          <p class="p" data-zh="《下町火箭》S1 Ep3-4：NASA Valve 機會的雙重鏡頭——Value-based vs Competition-based；以及 Causation vs Effectuation 兩種創業邏輯。" data-en="S1 Ep3-4: the dual lens on the NASA Valve opportunity — Value-based vs Competition-based strategy; and Causation vs Effectuation as two entrepreneurial logics.">《下町火箭》S1 Ep3-4：NASA Valve 機會的雙重鏡頭——Value-based vs Competition-based；以及 Causation vs Effectuation 兩種創業邏輯。</p>
+          <div class="pillRow">
+            <span class="pill st">Causation vs Effectuation</span><span class="pill st">Value-based / Competition-based</span><span class="pill st">Bird-in-Hand Principle</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 3, 4 章" data-en="Grant, Ch. 3, 4">Grant，第 3, 4 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Sarasvathy, S. D. (2001/2025).</b> What makes entrepreneurs entrepreneurial? Charlottesville: University of Virginia Darden School Foundation.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W4｜競爭優勢來源" data-en="W4 | Sources of Competitive Advantage">W4｜競爭優勢來源</span><span class="wk st">W4</span></h3>
+          <p class="p" data-zh="Value Chain 找 FSA 的活動位置；Hatam (2023) 機構能力的六維 VECTOR 框架；BMC × Porter 通用策略對讀；案例：Peloton vs Nautilus。" data-en="Locate FSA inside the Value Chain; Hatam (2023) six-dim VECTOR institutional capability; BMC × Porter generic strategies; case: Peloton vs Nautilus.">Value Chain 找 FSA 的活動位置；Hatam (2023) 機構能力的六維 VECTOR 框架；BMC × Porter 通用策略對讀；案例：Peloton vs Nautilus。</p>
+          <div class="pillRow">
+            <span class="pill st">Value Chain / FSA</span><span class="pill st">VECTOR Capability</span><span class="pill st">BMC</span><span class="pill st">Porter Generics</span><span class="pill st">VRIN / VRIO</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 5, 7 章" data-en="Grant, Ch. 5, 7">Grant，第 5, 7 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Hatam, H., Mendelson, B., Park, M., Segel, L. H., & Zemmel, R. (2023).</b> What's your superpower? How companies can build an institutional capability to achieve competitive advantage. <i>McKinsey & Company</i>.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W5｜策略創新與軸轉" data-en="W5 | Strategic Innovation & Pivoting">W5｜策略創新與軸轉</span><span class="wk st">W5</span></h3>
+          <p class="p" data-zh="S1 Ep7-8 航太→醫療軸轉：Raisch & Tushman 的新事業『畢業流程』，輔以 Blue Ocean (ERRC) 與 Optimal Distinctiveness 的精準差異化。" data-en="S1 Ep7-8 aerospace→medical pivot: Raisch & Tushman's 'graduation process' for new ventures, plus Blue Ocean (ERRC) and Optimal Distinctiveness for precise differentiation.">S1 Ep7-8 航太→醫療軸轉：Raisch & Tushman 的新事業『畢業流程』，輔以 Blue Ocean (ERRC) 與 Optimal Distinctiveness 的精準差異化。</p>
+          <div class="pillRow">
+            <span class="pill st">Raisch & Tushman Graduation</span><span class="pill st">Blue Ocean / ERRC</span><span class="pill st">Optimal Distinctiveness</span><span class="pill st">Strategic Architecture</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 9 章" data-en="Grant, Ch. 9">Grant，第 9 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Raisch, S., & Tushman, M. L. (2016).</b> Growing new corporate businesses: From initiation to graduation. <i>Organization Science, 27</i>(5), 1237–1257.</div>
+        </div>
+
+        <div class="card" style="grid-column:1 / -1">
+          <h3 class="cardTitle"><span data-zh="W6｜執行 × 動態能力（含 Case 1）" data-en="W6 | Execution × Dynamic Capabilities (incl. Case 1)">W6｜執行 × 動態能力（含 Case 1）</span><span class="wk ca">W6 · Case 1</span></h3>
+          <p class="p" data-zh="S1 Ep9-10：品質剛性 × 組織彈性的悖論。Teece 動態能力的 SST 微基礎（Sensing/Seizing/Transforming），與 Martin 的『選擇串流 (Choice Cascade)』顛覆腦-身體執行謬誤。" data-en="S1 Ep9-10: paradox of quality rigidity × organizational flexibility. Teece's SST microfoundations (Sensing/Seizing/Transforming) and Martin's Choice Cascade overturn the brain-body execution fallacy.">S1 Ep9-10：品質剛性 × 組織彈性的悖論。Teece 動態能力的 SST 微基礎（Sensing/Seizing/Transforming），與 Martin 的『選擇串流 (Choice Cascade)』顛覆腦-身體執行謬誤。</p>
+          <div class="pillRow">
+            <span class="pill st">Teece SST (2007/2018)</span><span class="pill st">Microfoundations</span><span class="pill st">Choice Cascade</span><span class="pill st">Ordinary vs Dynamic Capabilities</span><span class="pill ca">★ Case 1 Browser Wars</span>
+          </div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Teece, D. J. (2007).</b> Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance. <i>Strategic Management Journal, 28</i>(13), 1319–1350.</div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Martin, R. L. (2010).</b> The execution trap. Drawing a line between strategy and execution almost guarantees failure. <i>Harvard Business Review, 88</i>(7–8), 64–71.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GROWTH MODULE ===================== -->
+    <section id="growth" class="section reveal d3">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" style="color:var(--growth)"><span data-zh="② 成長｜全球佈局與協同" data-en="② Growth | Global Configuration & Collaboration">② 成長｜全球佈局與協同</span></h1>
+          <p class="sub" data-zh="W7–W10 主軸：以《下町火箭》S2 為主線，從相關多角化、跨國 GVC、聯盟治理，一路走到 Darwin 平台戰。" data-en="W7–W10 spine: through Shitamachi Rocket S2, from related diversification → cross-border GVC → alliance governance → the Darwin platform war.">W7–W10 主軸：以《下町火箭》S2 為主線，從相關多角化、跨國 GVC、聯盟治理，一路走到 Darwin 平台戰。</p>
+        </div>
+        <span class="tag" style="background:rgba(15,118,110,.10);border-color:rgba(15,118,110,.30);color:var(--growth)" data-zh="W7 · W8 · W9 · W10" data-en="W7 · W8 · W9 · W10">W7 · W8 · W9 · W10</span>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W7｜多角化與組合策略" data-en="W7 | Diversification & Portfolio">W7｜多角化與組合策略</span><span class="wk gr">W7</span></h3>
+          <p class="p" data-zh="S2 Ep1-3 農機進場：Wiersema & Beck 相關／不相關多角化類型；Anand & Collis 多事業策略光譜；多角化—績效的倒 U 型曲線。" data-en="S2 Ep1-3 entering ag-machinery: Wiersema & Beck related/unrelated types; Anand & Collis multibusiness continuum; inverted-U between diversification level and performance.">S2 Ep1-3 農機進場：Wiersema & Beck 相關／不相關多角化類型；Anand & Collis 多事業策略光譜；多角化—績效的倒 U 型曲線。</p>
+          <div class="pillRow">
+            <span class="pill gr">Related vs Unrelated</span><span class="pill gr">Multibusiness Continuum</span><span class="pill gr">Inverted-U Performance</span><span class="pill gr">Relatedness Measures</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 12 章" data-en="Grant, Ch. 12">Grant，第 12 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Anand, B. N., & Collis, D. J. (2024).</b> Why multibusiness strategies fail and how to make them succeed. <i>Harvard Business Review, 103</i>(9–10), 138–149.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W8｜CAGE × 半全球化 × GVC" data-en="W8 | CAGE × Semiglobalization × GVC">W8｜CAGE × 半全球化 × GVC</span><span class="wk gr">W8</span></h3>
+          <p class="p" data-zh="S2 Ep4-5 跨國供應鏈：Ghemawat CAGE 距離（文化 / 行政 / 地理 / 經濟）、半全球化邏輯，與 GVC 治理；含 Michelin Kansas 與 Project Gemini NPV+ESG 試算。" data-en="S2 Ep4-5 cross-border supply chain: Ghemawat CAGE distance (Cultural/Administrative/Geographic/Economic), Semiglobalization logic, GVC governance; with Michelin Kansas and Project Gemini NPV+ESG.">S2 Ep4-5 跨國供應鏈：Ghemawat CAGE 距離（文化 / 行政 / 地理 / 經濟）、半全球化邏輯，與 GVC 治理；含 Michelin Kansas 與 Project Gemini NPV+ESG 試算。</p>
+          <div class="pillRow">
+            <span class="pill gr">CAGE Distance</span><span class="pill gr">Semiglobalization</span><span class="pill gr">Global Value Chain (GVC)</span><span class="pill gr">NPV + ESG</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 10, 11 章" data-en="Grant, Ch. 10, 11">Grant，第 10, 11 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Ghemawat, P. (2009).</b> Redefining global strategy. <i>IESE Alumni Magazine</i>, (E113), 9.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W9｜聯盟治理 × R&D 共同開發" data-en="W9 | Alliance Governance × R&D Co-Development">W9｜聯盟治理 × R&D 共同開發</span><span class="wk gr">W9</span></h3>
+          <p class="p" data-zh="S2 Ep6-7 與 Gear Ghost 共同開發：選擇 Equity vs Non-Equity 治理結構、IP 保護機制；SME 在跨國聯盟中的學習速度與 ambidexterity。" data-en="S2 Ep6-7 Gear Ghost co-dev: choosing Equity vs Non-Equity governance, IP protection; SMEs' learning speed and ambidexterity in cross-border alliances.">S2 Ep6-7 與 Gear Ghost 共同開發：選擇 Equity vs Non-Equity 治理結構、IP 保護機制；SME 在跨國聯盟中的學習速度與 ambidexterity。</p>
+          <div class="pillRow">
+            <span class="pill gr">Alliance Governance</span><span class="pill gr">Equity / Non-Equity</span><span class="pill gr">IP Protection</span><span class="pill gr">Co-Innovation Ambidexterity</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Bartlett & Beamish，第 6 章" data-en="Bartlett & Beamish, Ch. 6">Bartlett & Beamish，第 6 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Zahoor, N., Al-Tabbaa, O., & Khan, Z. (2023).</b> R&D alliances and SMEs post-entry internationalization speed: The impact of alliance management capability and co-innovation ambidexterity. <i>Global Strategy Journal, 13</i>(2), 315–348.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W10｜平台 × 管道 × 生態系競爭" data-en="W10 | Platforms × Pipelines × Ecosystems">W10｜平台 × 管道 × 生態系競爭</span><span class="wk gr">W10</span></h3>
+          <p class="p" data-zh="S2 Ep8-9 Darwin 平台戰：Van Alstyne／Parker／Choudary 的『從管道到平台』新規則；Jacobides 強調『外部性 ≠ 互補性』；Komatsu vs Caterpillar 對讀。" data-en="S2 Ep8-9 the Darwin platform war: Van Alstyne/Parker/Choudary 'pipelines→platforms'; Jacobides 'externalities ≠ complementarities'; Komatsu vs Caterpillar.">S2 Ep8-9 Darwin 平台戰：Van Alstyne／Parker／Choudary 的『從管道到平台』新規則；Jacobides 強調『外部性 ≠ 互補性』；Komatsu vs Caterpillar 對讀。</p>
+          <div class="pillRow">
+            <span class="pill gr">Pipelines → Platforms</span><span class="pill gr">Network Externalities</span><span class="pill gr">Complementarities</span><span class="pill gr">Platform Leader vs Niche</span>
+          </div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Van Alstyne, M. W., Parker, G. G., & Choudary, S. P. (2016).</b> Pipelines, platforms, and the new rules of strategy. <i>Harvard Business Review, 94</i>(4), 54–62.</div>
+          <div class="reading"><span class="badge" data-zh="補充" data-en="SUPP">補充</span><b>Jacobides, M. G., et al. (2024).</b> Disentangling externalities from complementarities in platforms & ecosystems.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ORGANIZATION MODULE ===================== -->
+    <section id="org" class="section reveal d3">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" style="color:var(--org)"><span data-zh="③ 組織｜全球協調與控制" data-en="③ Organization | Global Coordination & Control">③ 組織｜全球協調與控制</span></h1>
+          <p class="sub" data-zh="W11–W13 主軸：從組織設計到雙元組織，再到 M&A 與重組；含 Olympus 跨國組織三框架整合與 Seven & i 雙 Offer 個案。" data-en="W11–W13 spine: from organizational design to ambidextrous organizations to M&A & restructuring; with Olympus three-framework integration and the Seven & i two-offer case.">W11–W13 主軸：從組織設計到雙元組織，再到 M&A 與重組；含 Olympus 跨國組織三框架整合與 Seven & i 雙 Offer 個案。</p>
+        </div>
+        <span class="tag" style="background:rgba(76,29,149,.10);border-color:rgba(76,29,149,.30);color:var(--org)" data-zh="W11 · W12 · W13" data-en="W11 · W12 · W13">W11 · W12 · W13</span>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W11｜組織設計與協調控制" data-en="W11 | Organizational Design & Coordination/Control">W11｜組織設計與協調控制</span><span class="wk or">W11</span></h3>
+          <p class="p" data-zh="S2 Ep10：R&D 與 Sales 的長期張力；Moedt et al. (2024) 整理超速成長（hypergrowth）下四類成長痛——職務擴張、大量招聘、領導升級、文化稀釋。" data-en="S2 Ep10: chronic R&D × Sales tension; Moedt et al. (2024) types four growing pains under hypergrowth — job-demand expansion, mass hiring, leadership upgrade, culture dilution.">S2 Ep10：R&D 與 Sales 的長期張力；Moedt et al. (2024) 整理超速成長（hypergrowth）下四類成長痛——職務擴張、大量招聘、領導升級、文化稀釋。</p>
+          <div class="pillRow">
+            <span class="pill or">Coordination × Control</span><span class="pill or">Scale-up Hypergrowth</span><span class="pill or">Four Growing Pains</span><span class="pill or">Senior-team Integration</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Grant，第 6 章 + Bartlett & Beamish，第 4 章" data-en="Grant Ch. 6 + Bartlett & Beamish Ch. 4">Grant，第 6 章 + Bartlett & Beamish，第 4 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>Moedt, K., Lechner, C., & Khapova, S. (2024).</b> Growing pains during scale-up hypergrowth: Integration and future research agenda. <i>Technological Forecasting and Social Change, 209</i>, 123779.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle"><span data-zh="W12｜公司更新 × 雙元組織" data-en="W12 | Corporate Renewal × Ambidextrous Org">W12｜公司更新 × 雙元組織</span><span class="wk or">W12</span></h3>
+          <p class="p" data-zh="S2 終章：同時 exploit 火箭閥門合約並 explore 自駕技術；O'Reilly & Tushman 四種結構中只有結構分離 + 高層整合的雙元組織成功率最高；含 Olympus 三框架整合教學。" data-en="S2 finale: simultaneously exploit rocket-valve contracts and explore autonomous driving; among O'Reilly & Tushman's four structures, only structural separation + senior integration (ambidextrous) sustains success; includes Olympus three-framework integration.">S2 終章：同時 exploit 火箭閥門合約並 explore 自駕技術；O'Reilly & Tushman 四種結構中只有結構分離 + 高層整合的雙元組織成功率最高；含 Olympus 三框架整合教學。</p>
+          <div class="pillRow">
+            <span class="pill or">Ambidextrous Organization</span><span class="pill or">Exploit vs Explore</span><span class="pill or">Two-in-a-Box</span><span class="pill or">I-R Framework</span><span class="pill or">Transnational (B&G)</span>
+          </div>
+          <div class="reading"><span class="badge txt" data-zh="教科書" data-en="TEXT">教科書</span><span data-zh="Bartlett & Beamish，第 7 章" data-en="Bartlett & Beamish, Ch. 7">Bartlett & Beamish，第 7 章</span></div>
+          <div class="reading"><span class="badge req" data-zh="必讀" data-en="REQ">必讀</span><b>O'Reilly, C. A., & Tushman, M. L. (2004).</b> The ambidextrous organization. <i>Harvard Business Review, 82</i>(4), 74–83.</div>
+        </div>
+
+        <div class="card" style="grid-column:1 / -1">
+          <h3 class="cardTitle"><span data-zh="W13｜M&A 與公司重組（含 Case 2）" data-en="W13 | M&A and Corporate Restructuring (incl. Case 2)">W13｜M&A 與公司重組（含 Case 2）</span><span class="wk ca">W13 · Case 2</span></h3>
+          <p class="p" data-zh="Sirower & Weirens 收購策略地圖；四種估值方法（DCF / EV-EBITDA / Comparables / Premiums），Conglomerate Discount × Sum-of-the-Parts；治理張力：Stakeholder vs Shareholder Primacy。" data-en="Sirower & Weirens acquisition strategy map; four valuation methods (DCF / EV-EBITDA / Comparables / Premiums), Conglomerate Discount × Sum-of-the-Parts; governance tension: Stakeholder vs Shareholder Primacy.">Sirower & Weirens 收購策略地圖；四種估值方法（DCF / EV-EBITDA / Comparables / Premiums），Conglomerate Discount × Sum-of-the-Parts；治理張力：Stakeholder vs Shareholder Primacy。</p>
+          <div class="pillRow">
+            <span class="pill or">Four Valuation Methods</span><span class="pill or">Conglomerate Discount × SoTP</span><span class="pill or">Synergy / Antitrust Risk</span><span class="pill or">Stakeholder vs Shareholder</span><span class="pill ca">★ Case 2 Seven & i</span>
+          </div>
+          <div class="reading"><span class="badge" data-zh="課堂材料" data-en="CLASS">課堂材料</span><span data-zh="Case 2 Seven & i 投影片與 Special Committee 文件" data-en="Case 2 Seven & i slides + Special Committee materials">Case 2 Seven & i 投影片與 Special Committee 文件</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CASES ===================== -->
+    <section id="cases" class="section reveal d4">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" style="color:var(--case)"><span data-zh="🎯 兩大個案：理論在哪裡被用上？" data-en="🎯 Two Spotlight Cases: Where Do the Theories Apply?">🎯 兩大個案：理論在哪裡被用上？</span></h1>
+          <p class="sub" data-zh="個案 1 對接『策略模組』、個案 2 對接『組織模組（含 W7 多角化）』，兩者共同回扣整學期的核心框架。" data-en="Case 1 maps to the Strategy module; Case 2 maps to the Organization module (with W7 diversification); both close the loop on the semester's frameworks.">個案 1 對接『策略模組』、個案 2 對接『組織模組（含 W7 多角化）』，兩者共同回扣整學期的核心框架。</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3 class="cardTitle" style="color:var(--case)"><span data-zh="Case 1（W6）｜Browser Wars Continue 1994–2026" data-en="Case 1 (W6) | Browser Wars Continue 1994–2026">Case 1（W6）｜Browser Wars Continue 1994–2026</span><span class="wk ca">Case 1</span></h3>
+          <p class="p" data-zh="從 Netscape vs IE、Firefox / Chrome 稱霸，到 ChatGPT Atlas / Comet / Dia 的 AI 瀏覽器革命。三場戰爭背後是同一組策略規律。" data-en="From Netscape vs IE to the Firefox/Chrome era, and now the AI-browser revolution of ChatGPT Atlas / Comet / Dia. Three wars driven by the same strategic patterns.">從 Netscape vs IE、Firefox / Chrome 稱霸，到 ChatGPT Atlas / Comet / Dia 的 AI 瀏覽器革命。三場戰爭背後是同一組策略規律。</p>
+          <div class="pillRow">
+            <span class="pill ca">Dynamic Capabilities (Teece)</span><span class="pill ca">Complementary Assets</span><span class="pill ca">Network Externalities</span><span class="pill ca">Choice Cascade</span><span class="pill ca">Strategic Pivoting</span>
+          </div>
+          <table class="tbl" style="margin-top:8px">
+            <thead><tr>
+              <th data-zh="戰爭" data-en="War">戰爭</th>
+              <th data-zh="贏家／關鍵動作" data-en="Winner / Key Move">贏家／關鍵動作</th>
+              <th data-zh="理論鏡頭" data-en="Theory Lens">理論鏡頭</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td data-zh="War I 1994–2000" data-en="War I 1994–2000">War I 1994–2000</td>
+                <td data-zh="Microsoft IE（OS 綁定）擊潰 Netscape" data-en="Microsoft IE crushes Netscape via OS bundling">Microsoft IE（OS 綁定）擊潰 Netscape</td>
+                <td data-zh="位置 × 互補資產（通路）" data-en="Position × Complementary assets (channel)">位置 × 互補資產（通路）</td>
+              </tr>
+              <tr>
+                <td data-zh="War II 2004–2015" data-en="War II 2004–2015">War II 2004–2015</td>
+                <td data-zh="Chrome 以搜尋／廣告／Web 服務築護城河" data-en="Chrome leverages search/ads/web-services as moats">Chrome 以搜尋／廣告／Web 服務築護城河</td>
+                <td data-zh="持久性互補資產 + 動態能力" data-en="Durable complementary assets + dynamic capabilities">持久性互補資產 + 動態能力</td>
+              </tr>
+              <tr>
+                <td data-zh="War III 2024–" data-en="War III 2024–">War III 2024–</td>
+                <td data-zh="AI 瀏覽器轉向『代理人式上網』" data-en="AI browsers pivot toward agentic browsing">AI 瀏覽器轉向『代理人式上網』</td>
+                <td data-zh="價值主張轉變 + 分發護城河" data-en="Value-prop shift + distribution moat">價值主張轉變 + 分發護城河</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3 class="cardTitle" style="color:var(--case)"><span data-zh="Case 2（W13）｜Assessing the Offers for Seven & i Holdings" data-en="Case 2 (W13) | Assessing the Offers for Seven & i Holdings">Case 2（W13）｜Assessing the Offers for Seven & i Holdings</span><span class="wk ca">Case 2</span></h3>
+          <p class="p" data-zh="特別委員會在 ACT (Couche-Tard) 跨國併購提案與創辦人家族 MBO 之間如何抉擇？兩個 Offer 後面是兩種治理哲學。" data-en="How should the Special Committee weigh the ACT (Couche-Tard) cross-border bid against the founding-family MBO? Two offers, two governance philosophies.">特別委員會在 ACT (Couche-Tard) 跨國併購提案與創辦人家族 MBO 之間如何抉擇？兩個 Offer 後面是兩種治理哲學。</p>
+          <div class="pillRow">
+            <span class="pill ca">DCF</span><span class="pill ca">EV / EBITDA</span><span class="pill ca">Comparables × Premium</span><span class="pill ca">Conglomerate Discount</span><span class="pill ca">SoTP</span><span class="pill ca">Stakeholder vs Shareholder</span>
+          </div>
+          <table class="tbl" style="margin-top:8px">
+            <thead><tr>
+              <th data-zh="決策層" data-en="Decision Layer">決策層</th>
+              <th data-zh="主要工具／框架" data-en="Primary Tool / Framework">主要工具／框架</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td data-zh="估值區間" data-en="Valuation range">估值區間</td>
+                <td data-zh="四種估值方法收斂 → 每股價值區間" data-en="Four methods converge into a per-share value range">四種估值方法收斂 → 每股價值區間</td>
+              </tr>
+              <tr>
+                <td data-zh="集團價值拆解" data-en="Group decomposition">集團價值拆解</td>
+                <td data-zh="Conglomerate Discount × Sum-of-the-Parts" data-en="Conglomerate Discount × Sum-of-the-Parts">Conglomerate Discount × Sum-of-the-Parts</td>
+              </tr>
+              <tr>
+                <td data-zh="戰略風險" data-en="Strategic risk">戰略風險</td>
+                <td data-zh="協同效益、反壟斷與整合風險（跨國 M&amp;A × CAGE）" data-en="Synergy, antitrust & integration risk (cross-border M&amp;A × CAGE)">協同效益、反壟斷與整合風險（跨國 M&A × CAGE）</td>
+              </tr>
+              <tr>
+                <td data-zh="治理張力" data-en="Governance tension">治理張力</td>
+                <td data-zh="日本治理傳統 vs 國際股東主義" data-en="Japanese stakeholder tradition vs global shareholder primacy">日本治理傳統 vs 國際股東主義</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="callout teal" style="margin-top:14px">
+        <strong data-zh="跨模組總結：" data-en="Cross-module synthesis:">跨模組總結：</strong>
+        <span data-zh="① 策略：以《下町火箭》S1 為主軸，Browser Wars 對照『位置 × 能力 × 互補資產』如何決定贏家。② 成長：以 S2 為主軸，從多角化到 CAGE、聯盟到平台，回答『往哪裡長、跟誰一起長』。③ 組織：以 S2 收尾 + Olympus 對照，最後以 Seven &amp; i 雙 Offer 把 M&amp;A 與治理拉到收尾。" data-en="① Strategy uses Shitamachi Rocket S1 as the spine; Browser Wars mirrors how Position × Capability × Complementary Assets determine winners. ② Growth uses S2 as the spine: diversification → CAGE → alliances → platforms — where to grow and with whom. ③ Organization closes with S2 + Olympus and Seven &amp; i — M&amp;A and governance.">① 策略：以《下町火箭》S1 為主軸，Browser Wars 對照『位置 × 能力 × 互補資產』如何決定贏家。② 成長：以 S2 為主軸，從多角化到 CAGE、聯盟到平台，回答『往哪裡長、跟誰一起長』。③ 組織：以 S2 收尾 + Olympus 對照，最後以 Seven & i 雙 Offer 把 M&A 與治理拉到收尾。</span>
+      </div>
+    </section>
+
+    <!-- ===================== READINGS ===================== -->
+    <section id="readings" class="section reveal d5">
+      <div class="sectionHead">
+        <div>
+          <h1 class="h1" data-zh="📚 全部指定閱讀（依週次）" data-en="📚 All Required Readings (by Week)">📚 全部指定閱讀（依週次）</h1>
+          <p class="sub" data-zh="整理自 Syllabus_IB7018_2026.pdf。教科書章節以金色標示，期刊／實務文章以藏青標示。" data-en="Compiled from Syllabus_IB7018_2026.pdf. Textbook chapters in gold; journal/practitioner articles in NTU navy.">整理自 Syllabus_IB7018_2026.pdf。教科書章節以金色標示，期刊／實務文章以藏青標示。</p>
+        </div>
+      </div>
+
+      <table class="tbl">
+        <thead><tr>
+          <th data-zh="模組" data-en="Module">模組</th>
+          <th data-zh="週" data-en="Wk">週</th>
+          <th data-zh="主題" data-en="Topic">主題</th>
+          <th data-zh="教科書章節" data-en="Textbook Ch.">教科書章節</th>
+          <th data-zh="期刊／實務閱讀（必讀）" data-en="Journal/Practitioner Reading (Required)">期刊／實務閱讀（必讀）</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="pill st" data-zh="① 策略" data-en="① Strategy">① 策略</span></td><td>W2</td><td data-zh="績效與價值分析" data-en="Performance &amp; Value Analysis">績效與價值分析</td><td data-zh="Grant 1, 2, 4" data-en="Grant 1, 2, 4">Grant 1, 2, 4</td><td>Souder, Shaver, Harris, &amp; Alrashdan (2024). <i>SMJ, 45</i>(1), 144–167.</td></tr>
+          <tr><td><span class="pill st" data-zh="① 策略" data-en="① Strategy">① 策略</span></td><td>W3</td><td data-zh="機會辨識" data-en="Opportunity Recognition">機會辨識</td><td data-zh="Grant 3, 4" data-en="Grant 3, 4">Grant 3, 4</td><td>Sarasvathy (2001/2025). What makes entrepreneurs entrepreneurial? Darden.</td></tr>
+          <tr><td><span class="pill st" data-zh="① 策略" data-en="① Strategy">① 策略</span></td><td>W4</td><td data-zh="競爭優勢來源" data-en="Sources of Competitive Advantage">競爭優勢來源</td><td data-zh="Grant 5, 7" data-en="Grant 5, 7">Grant 5, 7</td><td>Hatam, Mendelson, Park, Segel, &amp; Zemmel (2023). What's your superpower? McKinsey.</td></tr>
+          <tr><td><span class="pill st" data-zh="① 策略" data-en="① Strategy">① 策略</span></td><td>W5</td><td data-zh="策略創新與軸轉" data-en="Strategic Innovation &amp; Pivoting">策略創新與軸轉</td><td data-zh="Grant 9" data-en="Grant 9">Grant 9</td><td>Raisch &amp; Tushman (2016). <i>Organization Science, 27</i>(5), 1237–1257.</td></tr>
+          <tr><td><span class="pill st" data-zh="① 策略" data-en="① Strategy">① 策略</span></td><td>W6</td><td data-zh="執行 × 動態能力（Case 1）" data-en="Execution × Dynamic Capabilities (Case 1)">執行 × 動態能力（Case 1）</td><td>—</td><td>Teece (2007). <i>SMJ, 28</i>(13), 1319–1350. + Martin (2010). <i>HBR, 88</i>(7-8), 64–71.</td></tr>
+          <tr><td><span class="pill gr" data-zh="② 成長" data-en="② Growth">② 成長</span></td><td>W7</td><td data-zh="相關多角化" data-en="Related Diversification">相關多角化</td><td data-zh="Grant 12" data-en="Grant 12">Grant 12</td><td>Anand &amp; Collis (2024). <i>HBR, 103</i>(9-10), 138–149.</td></tr>
+          <tr><td><span class="pill gr" data-zh="② 成長" data-en="② Growth">② 成長</span></td><td>W8</td><td data-zh="CAGE × 半全球化 × GVC" data-en="CAGE × Semiglobalization × GVC">CAGE × 半全球化 × GVC</td><td data-zh="Grant 10, 11" data-en="Grant 10, 11">Grant 10, 11</td><td>Ghemawat (2009). Redefining global strategy. <i>IESE Alumni Magazine</i>, (E113), 9.</td></tr>
+          <tr><td><span class="pill gr" data-zh="② 成長" data-en="② Growth">② 成長</span></td><td>W9</td><td data-zh="聯盟治理" data-en="Alliance Governance">聯盟治理</td><td data-zh="Bartlett &amp; Beamish 6" data-en="Bartlett &amp; Beamish 6">Bartlett &amp; Beamish 6</td><td>Zahoor, Al-Tabbaa, &amp; Khan (2023). <i>Global Strategy Journal, 13</i>(2), 315–348.</td></tr>
+          <tr><td><span class="pill gr" data-zh="② 成長" data-en="② Growth">② 成長</span></td><td>W10</td><td data-zh="平台與生態系" data-en="Platforms &amp; Ecosystems">平台與生態系</td><td>—</td><td>Van Alstyne, Parker, &amp; Choudary (2016). <i>HBR, 94</i>(4), 54–62.</td></tr>
+          <tr><td><span class="pill or" data-zh="③ 組織" data-en="③ Organization">③ 組織</span></td><td>W11</td><td data-zh="組織設計與協調控制" data-en="Org Design &amp; Coordination/Control">組織設計與協調控制</td><td data-zh="Grant 6 + B&amp;G 4" data-en="Grant 6 + B&amp;G 4">Grant 6 + B&G 4</td><td>Moedt, Lechner, &amp; Khapova (2024). <i>Tech. Forecasting &amp; Social Change, 209</i>, 123779.</td></tr>
+          <tr><td><span class="pill or" data-zh="③ 組織" data-en="③ Organization">③ 組織</span></td><td>W12</td><td data-zh="公司更新 × 雙元組織" data-en="Corporate Renewal × Ambidexterity">公司更新 × 雙元組織</td><td data-zh="Bartlett &amp; Beamish 7" data-en="Bartlett &amp; Beamish 7">Bartlett &amp; Beamish 7</td><td>O'Reilly &amp; Tushman (2004). <i>HBR, 82</i>(4), 74–83.</td></tr>
+          <tr><td><span class="pill or" data-zh="③ 組織" data-en="③ Organization">③ 組織</span></td><td>W13</td><td data-zh="M&amp;A × Case 2 Seven &amp; i" data-en="M&amp;A × Case 2 Seven &amp; i">M&A × Case 2 Seven & i</td><td>—</td><td data-zh="課堂材料：Sirower &amp; Weirens 收購策略地圖；四估值方法" data-en="Class materials: Sirower &amp; Weirens acquisition map; four valuation methods">課堂材料：Sirower &amp; Weirens 收購策略地圖；四估值方法</td></tr>
+        </tbody>
+      </table>
+
+      <p class="sm" style="margin-top:10px" data-zh="教科書：Grant, R. M. (12e), Contemporary Strategy Analysis, Wiley.；Bartlett, C. A. &amp; Beamish, P. W. (9e), Transnational Management: Text and Cases in Cross-Border Management, McGraw Hill." data-en="Textbooks: Grant, R. M. (12e), Contemporary Strategy Analysis, Wiley; Bartlett, C. A. &amp; Beamish, P. W. (9e), Transnational Management: Text and Cases in Cross-Border Management, McGraw Hill.">教科書：Grant, R. M. (12e), Contemporary Strategy Analysis, Wiley.；Bartlett, C. A. & Beamish, P. W. (9e), Transnational Management: Text and Cases in Cross-Border Management, McGraw Hill.</p>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+let LANG = 'zh';
+function applyLang(lang){
+  LANG = lang;
+  document.documentElement.lang = (lang==='zh'?'zh-Hant':'en');
+  document.querySelectorAll('[data-zh][data-en]').forEach(el=>{
+    el.textContent = (lang==='zh' ? el.getAttribute('data-zh') : el.getAttribute('data-en'));
+  });
+  renderMindMap();
+}
+document.getElementById('btnLang').addEventListener('click', ()=>{
+  applyLang(LANG==='zh'?'en':'zh');
+  showToast(LANG==='zh'?'已切換為中文':'Switched to English');
+});
+document.getElementById('btnPrint').addEventListener('click', ()=>window.print());
+
+const navBtns = document.querySelectorAll('.navItem');
+navBtns.forEach(b=>{
+  b.addEventListener('click', ()=>{
+    navBtns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const el = document.getElementById(b.dataset.target);
+    if(el){
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({top, behavior:'smooth'});
+    }
+  });
+});
+
+const sections = ['overview','mindmap','strategy','growth','org','cases','readings']
+  .map(id=>document.getElementById(id)).filter(Boolean);
+window.addEventListener('scroll', ()=>{
+  const y = window.scrollY + 140;
+  let cur = sections[0];
+  sections.forEach(s=>{ if(s.offsetTop <= y) cur = s; });
+  navBtns.forEach(b=> b.classList.toggle('active', b.dataset.target===cur.id));
+}, {passive:true});
+
+const toast = document.getElementById('toast');
+function showToast(msg){
+  toast.textContent = msg; toast.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>toast.classList.remove('show'), 1800);
+}
+
+const COL = {
+  strategy:'#B45309', strategy2:'#FEF3C7',
+  growth:'#0F766E',   growth2:'#CCFBF1',
+  org:'#4C1D95',      org2:'#EDE9FE',
+  ntu:'#002B5C',      gold:'#C9A227',
+  case:'#991B1B',     caseBg:'#FEE2E2',
+  ink:'#0B1220',      line:'#CBD5E1', leaf:'#F8FAFC'
+};
+
+const MM = {
+  root:{zh:'IB7018 國際企業經營策略',en:'IB7018 Intl. Business Strategy'},
+  rootSub:{zh:'2026 Spring · 三模組整合',en:'Spring 2026 · 3-Module Map'},
+  modules:[
+    { id:'strategy', color:COL.strategy, bg:COL.strategy2,
+      title:{zh:'① 策略 Strategy',en:'① Strategy'},
+      sub:{zh:'W2–W6 跨境競爭優勢',en:'W2–W6 Cross-border Advantage'},
+      weeks:[
+        { tag:'W2', title:{zh:'績效與價值',en:'Performance & Value'},
+          theories:[
+            {zh:'RDT 資源依賴', en:'RDT'},
+            {zh:'Souder (2024) 動態價值', en:'Souder (2024) Dynamic Value'},
+            {zh:'Grant Ch.1/2/4', en:'Grant Ch.1/2/4'}
+          ]},
+        { tag:'W3', title:{zh:'機會辨識',en:'Opportunity Recognition'},
+          theories:[
+            {zh:'Causation vs Effectuation', en:'Causation vs Effectuation'},
+            {zh:'Value-based vs Competition', en:'Value-based vs Competition'},
+            {zh:'Sarasvathy (2001/2025)', en:'Sarasvathy (2001/2025)'}
+          ]},
+        { tag:'W4', title:{zh:'競爭優勢來源',en:'Sources of Advantage'},
+          theories:[
+            {zh:'Value Chain / FSA', en:'Value Chain / FSA'},
+            {zh:'VECTOR Capability', en:'VECTOR Capability'},
+            {zh:'BMC × Porter Generics', en:'BMC × Porter Generics'},
+            {zh:'Hatam (2023) Superpower', en:'Hatam (2023) Superpower'}
+          ]},
+        { tag:'W5', title:{zh:'策略創新與軸轉',en:'Strategic Innovation & Pivoting'},
+          theories:[
+            {zh:'Raisch & Tushman 畢業流程', en:'Raisch & Tushman Graduation'},
+            {zh:'Blue Ocean / ERRC', en:'Blue Ocean / ERRC'},
+            {zh:'Optimal Distinctiveness', en:'Optimal Distinctiveness'}
+          ]},
+        { tag:'W6', title:{zh:'執行 × 動態能力',en:'Execution × Dynamic Capabilities'},
+          theories:[
+            {zh:'Teece SST 微基礎', en:'Teece SST Microfoundations'},
+            {zh:'Martin Choice Cascade', en:'Martin Choice Cascade'},
+            {zh:'★ Case 1 Browser Wars', en:'★ Case 1 Browser Wars', isCase:true}
+          ]}
+      ]
+    },
+    { id:'growth', color:COL.growth, bg:COL.growth2,
+      title:{zh:'② 成長 Growth',en:'② Corporate Growth'},
+      sub:{zh:'W7–W10 佈局與協同',en:'W7–W10 Configuration & Collaboration'},
+      weeks:[
+        { tag:'W7', title:{zh:'多角化',en:'Diversification'},
+          theories:[
+            {zh:'Wiersema & Beck 類型', en:'Wiersema & Beck Types'},
+            {zh:'Anand & Collis 光譜 (2024)', en:'Anand & Collis Continuum (2024)'},
+            {zh:'倒 U 型績效', en:'Inverted-U Performance'}
+          ]},
+        { tag:'W8', title:{zh:'CAGE × 半全球化 × GVC',en:'CAGE × Semiglobalization × GVC'},
+          theories:[
+            {zh:'Ghemawat CAGE Distance', en:'Ghemawat CAGE Distance'},
+            {zh:'Semiglobalization', en:'Semiglobalization'},
+            {zh:'NPV + ESG (Project Gemini)', en:'NPV + ESG (Project Gemini)'}
+          ]},
+        { tag:'W9', title:{zh:'聯盟治理',en:'Alliance Governance'},
+          theories:[
+            {zh:'Equity vs Non-Equity', en:'Equity vs Non-Equity'},
+            {zh:'Zahoor (2023) R&D 聯盟', en:'Zahoor (2023) R&D Alliance'},
+            {zh:'IP 保護機制', en:'IP Protection'}
+          ]},
+        { tag:'W10', title:{zh:'平台與生態系',en:'Platforms & Ecosystems'},
+          theories:[
+            {zh:'Van Alstyne Pipelines→Platforms', en:'Van Alstyne Pipelines→Platforms'},
+            {zh:'Jacobides 外部性 ≠ 互補性', en:'Jacobides Ext. ≠ Comp.'},
+            {zh:'Komatsu vs Caterpillar', en:'Komatsu vs Caterpillar'}
+          ]}
+      ]
+    },
+    { id:'org', color:COL.org, bg:COL.org2,
+      title:{zh:'③ 組織 Organization',en:'③ Organization'},
+      sub:{zh:'W11–W13 協調與控制',en:'W11–W13 Coordination & Control'},
+      weeks:[
+        { tag:'W11', title:{zh:'組織設計',en:'Org Design'},
+          theories:[
+            {zh:'協調 × 控制機制', en:'Coordination × Control'},
+            {zh:'Moedt (2024) 四類成長痛', en:'Moedt (2024) Four Pains'},
+            {zh:'Senior-team Integration', en:'Senior-team Integration'}
+          ]},
+        { tag:'W12', title:{zh:'公司更新 × 雙元組織',en:'Renewal × Ambidexterity'},
+          theories:[
+            {zh:"O'Reilly & Tushman 雙元組織", en:"O'Reilly & Tushman Ambidextrous"},
+            {zh:'Exploit vs Explore', en:'Exploit vs Explore'},
+            {zh:'Olympus I-R / Transnational', en:'Olympus I-R / Transnational'}
+          ]},
+        { tag:'W13', title:{zh:'M&A × 公司重組',en:'M&A × Restructuring'},
+          theories:[
+            {zh:'四種估值方法', en:'Four Valuation Methods'},
+            {zh:'Conglomerate Discount × SoTP', en:'Conglomerate Discount × SoTP'},
+            {zh:'Stakeholder vs Shareholder', en:'Stakeholder vs Shareholder'},
+            {zh:'★ Case 2 Seven & i', en:'★ Case 2 Seven & i', isCase:true}
+          ]}
+      ]
+    }
+  ]
+};
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+function svgEl(tag, attrs){
+  attrs = attrs || {};
+  const el = document.createElementNS(SVG_NS, tag);
+  for(const k in attrs){ el.setAttribute(k, attrs[k]); }
+  return el;
+}
+function estimateWidth(text, fontSize){
+  fontSize = fontSize || 12;
+  let w = 0;
+  for(const ch of String(text)){
+    w += /[一-鿿　-〿＀-￯]/.test(ch) ? fontSize : fontSize*0.62;
+  }
+  return w;
+}
+
+const SVG_W = 1500;
+const ROOT_Y = 70;
+const ROOT_W = 320, ROOT_H = 60;
+const MOD_Y  = 200;
+const MOD_W  = 260, MOD_H = 70;
+const WEEK_Y_START = 320;
+const WEEK_W = 280, WEEK_H = 58;
+const WEEK_VGAP = 30;
+const LEAF_H = 26;
+const LEAF_VGAP = 8;
+const LEAF_W_PAD = 18;
+const COL_CENTERS = [SVG_W/6, SVG_W/2, SVG_W*5/6];
+
+function renderMindMap(){
+  const svg = document.getElementById('mm');
+  if(!svg) return;
+  svg.innerHTML='';
+  const lang = LANG;
+
+  const defs = svgEl('defs');
+  defs.innerHTML =
+    '<filter id="cardShadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0B1220" flood-opacity=".14"/></filter>' +
+    '<linearGradient id="rootG" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#002B5C"/><stop offset="100%" stop-color="#C9A227"/></linearGradient>';
+  svg.appendChild(defs);
+
+  let maxBottom = 0;
+  const moduleLayout = MM.modules.map(function(mod, mi){
+    const cx = COL_CENTERS[mi];
+    let cursorY = WEEK_Y_START;
+    const weeks = mod.weeks.map(function(wk){
+      const y = cursorY;
+      const leavesBlock = wk.theories.length*(LEAF_H + LEAF_VGAP);
+      cursorY = y + WEEK_H + 14 + leavesBlock + WEEK_VGAP;
+      return {wk:wk, y:y, cx:cx};
+    });
+    const bottom = cursorY - WEEK_VGAP + 16;
+    if(bottom>maxBottom) maxBottom = bottom;
+    return {mod:mod, cx:cx, weeks:weeks};
+  });
+
+  const svgH = Math.max(900, maxBottom + 40);
+  svg.setAttribute('viewBox', '0 0 ' + SVG_W + ' ' + svgH);
+  svg.appendChild(svgEl('rect',{x:0,y:0,width:SVG_W,height:svgH,fill:'#FFFFFF'}));
+
+  const linksLayer = svgEl('g',{class:'mm-links'});
+  svg.appendChild(linksLayer);
+  const nodesLayer = svgEl('g',{class:'mm-nodes'});
+  svg.appendChild(nodesLayer);
+
+  const rootX = SVG_W/2;
+  nodesLayer.appendChild(svgEl('rect',{x:rootX-ROOT_W/2,y:ROOT_Y-ROOT_H/2,width:ROOT_W,height:ROOT_H,rx:14,fill:'url(#rootG)',stroke:'#fff','stroke-width':2,filter:'url(#cardShadow)'}));
+  appendText(nodesLayer, rootX, ROOT_Y-4, MM.root[lang], {'font-size':16,'font-weight':800,fill:'#fff','text-anchor':'middle'});
+  appendText(nodesLayer, rootX, ROOT_Y+16, MM.rootSub[lang], {'font-size':11.5,'font-weight':600,fill:'#FFF7CC','text-anchor':'middle'});
+
+  moduleLayout.forEach(function(m){
+    const cx = m.cx;
+    const modX = cx - MOD_W/2;
+    const modY = MOD_Y - MOD_H/2;
+
+    linksLayer.appendChild(svgEl('path',{
+      d: orthogonalDown(rootX, ROOT_Y + ROOT_H/2, cx, modY, 30),
+      fill:'none', stroke:m.mod.color, 'stroke-width':2.4,'stroke-linecap':'round',
+      class:'mm-link','stroke-opacity':.85
+    }));
+
+    nodesLayer.appendChild(svgEl('rect',{x:modX,y:modY,width:MOD_W,height:MOD_H,rx:14,fill:'#FFFFFF',stroke:m.mod.color,'stroke-width':2,filter:'url(#cardShadow)'}));
+    nodesLayer.appendChild(svgEl('rect',{x:modX,y:modY,width:8,height:MOD_H,rx:4,fill:m.mod.color}));
+    appendText(nodesLayer, cx+4, MOD_Y-6, m.mod.title[lang], {'font-size':16,'font-weight':900,fill:m.mod.color,'text-anchor':'middle'});
+    appendText(nodesLayer, cx+4, MOD_Y+14, m.mod.sub[lang], {'font-size':11.5,'font-weight':600,fill:'#475569','text-anchor':'middle'});
+
+    m.weeks.forEach(function(wkRow, wi){
+      const wk = wkRow.wk;
+      const y = wkRow.y;
+      const wkX = cx - WEEK_W/2;
+      const startY = modY + MOD_H;
+      linksLayer.appendChild(svgEl('path',{
+        d: orthogonalDown(cx, startY, cx, y, 18 + wi*10),
+        fill:'none', stroke:m.mod.color,'stroke-width':1.6,'stroke-opacity':.55,
+        class:'mm-link','stroke-linecap':'round'
+      }));
+
+      nodesLayer.appendChild(svgEl('rect',{x:wkX,y:y,width:WEEK_W,height:WEEK_H,rx:12,fill:'#F8FAFC',stroke:m.mod.color,'stroke-width':1.4}));
+      const tagW=42,tagH=20;
+      nodesLayer.appendChild(svgEl('rect',{x:wkX+10,y:y+8,width:tagW,height:tagH,rx:10,fill:m.mod.color}));
+      appendText(nodesLayer, wkX+10+tagW/2, y+8+14, wk.tag, {'font-size':11,'font-weight':800,fill:'#fff','text-anchor':'middle'});
+      appendText(nodesLayer, wkX+10+tagW+10, y+22, wk.title[lang], {'font-size':13,'font-weight':800,fill:COL.ink});
+      appendText(nodesLayer, wkX+10, y+46, (lang==='zh'?'核心理論：':'Core theories:'), {'font-size':10.5,'font-weight':700,fill:'#64748B'});
+
+      const theoryStartY = y + WEEK_H + 14;
+      wk.theories.forEach(function(th, ti){
+        const txt = th[lang];
+        const fontSize = 11.5;
+        const tw = Math.min(WEEK_W, Math.max(150, estimateWidth(txt, fontSize) + LEAF_W_PAD*2));
+        const leafX = cx - tw/2;
+        const leafY = theoryStartY + ti*(LEAF_H + LEAF_VGAP);
+        linksLayer.appendChild(svgEl('path',{
+          d: orthogonalDown(cx, y + WEEK_H, cx, leafY, 6 + ti*4),
+          fill:'none', stroke: th.isCase?COL.case:m.mod.color,'stroke-width':1.2,
+          'stroke-opacity':.45, class:'mm-link'
+        }));
+        nodesLayer.appendChild(svgEl('rect',{x:leafX,y:leafY,width:tw,height:LEAF_H,rx:13,
+          fill: th.isCase?COL.caseBg:COL.leaf,
+          stroke: th.isCase?COL.case:m.mod.color,'stroke-width': th.isCase?1.6:1}));
+        appendText(nodesLayer, leafX+tw/2, leafY+17, txt, {
+          'font-size':fontSize,'font-weight': th.isCase?800:600,
+          fill: th.isCase?COL.case:COL.ink,'text-anchor':'middle'
+        });
+      });
+    });
+  });
+}
+
+function orthogonalDown(x1,y1,x2,y2, midOffset){
+  if(midOffset===undefined) midOffset = 20;
+  const my = Math.min(y1,y2) + midOffset;
+  return 'M '+x1+' '+y1+' L '+x1+' '+my+' L '+x2+' '+my+' L '+x2+' '+y2;
+}
+function appendText(parent, x, y, text, attrs){
+  attrs = attrs || {};
+  attrs.x = x; attrs.y = y; attrs['font-family'] = 'system-ui, "Noto Sans TC", sans-serif';
+  const t = svgEl('text', attrs);
+  t.textContent = text;
+  parent.appendChild(t);
+  return t;
+}
+
+applyLang('zh');
+</script>
+</body>
+</html>
